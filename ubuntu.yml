@@ -1,0 +1,11 @@
+    - name: 우분투nginx 설치
+      action: "{{ ansible_pkg_mgr }} name=nginx state=latest"
+      when: ansible_distribution == 'Ubuntu'
+
+    - name: nginx 시작
+      service: name=nginx state=started
+      when: ansible_distribution == 'Ubuntu'
+  
+    - name: index.html 만들기
+      get_url: url=http://www.daum.net dest=/var/www/html/
+      when: ansible_distribution == 'Ubuntu'

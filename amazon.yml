@@ -1,0 +1,9 @@
+    - name: 아마존 리눅스 웹서버 설치
+      action: "{{ ansible_pkg_mgr }} name=httpd state=latest"
+
+    - name: httpd 시작
+      service: name=httpd state=started
+
+    - name: index.html 만들기
+      get_url: url=http://www.daum.net dest=/var/www/html/
+

@@ -1,0 +1,16 @@
+---
+- name: 배포판 별 웹서버 설치
+  hosts: all
+  become: true
+  vars:
+    dist_name: "{{ 'amazon' if ansible_distribution == 'Amazon'
+      else 'ubuntu' }}"
+
+  tasks:
+    - name: amazon 작업
+      include_tasks: "{{ dist_name }}.yml"
+    - name: Print IP
+      debug:
+        msg:
+          - "NodeName : {{ ansible_nodename }}"
+          - "eth0 : {{ ansible_eth0.ipv4.address }}"
